@@ -1,0 +1,23 @@
+{
+  "name": "Airbnb Exploration",
+  "version": "1.0.0",
+  "description": "Proce Predictor",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "mongoose": "^3.8.22",
+    "morgan": "^1.7.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
