@@ -1,7 +1,7 @@
 {
-  "name": "Airbnb Exploration",
+  "name": "AirbnbExploration",
   "version": "1.0.0",
-  "description": "Proce Predictor",
+  "description": "PricePredictor",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.15.0",
