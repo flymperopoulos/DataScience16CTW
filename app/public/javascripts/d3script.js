@@ -83,5 +83,4 @@ function drawMap (ca){
 	var div = d3.select("#map").append("div")
 		.attr("class", "tooltip")
 		.style("opacity", 0);
-
 }
