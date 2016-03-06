@@ -306,23 +306,21 @@ var EventEmitter = require('events').EventEmitter;
 
 var d3Map = {}
 
-d3Map.create = function(el, props, state){
-	console.log("lol", state)
+d3Map.create = function(el, props){
+	var dispatcher = new EventEmitter();
+
 	var mapSvg = d3.select(el).append('svg')
 		.attr('class', 'map')
 		.attr('width', props.width)
 		.attr('height', props.height);
-	console.log("createMap", state)
-	this.update(el, state);
+	return dispatcher
 }
 
-d3Map.update = function(el, state) {
-  // Re-compute the scales, and render the data points
-  console.log("in update data", state.data)
-  this._drawMap(el, state.data, state.path);
+d3Map.update = function(el, state, dispatcher) {
+  this._drawMap(el, state.data, state.path, dispatcher);
 };
 
-d3Map._drawMap = function(el, data, path){
+d3Map._drawMap = function(el, data, path, dispatcher){
 	var map = d3.select(el).selectAll('.map');
 
 	map.selectAll('.subunit')
@@ -346,14 +344,10 @@ d3Map._drawMap = function(el, data, path){
 				.style("opacity", 0.0);
 		})
 		.on("click", function(d){
-			data_for_req = {"neighborhood": d.properties.Name}
-			$.ajax({
-			  type: "POST",
-			  url: "/api/predict",
-			  data: data_for_req
-			});
+			// data_for_req = {"neighborhood": d.properties.Name}
+			dispatcher.emit('point:click', d.properties.Name);
 		})
-		
+
 	var div = d3.select("#map").append("div")
 		.attr("class", "tooltip")
 		.style("opacity", 0);

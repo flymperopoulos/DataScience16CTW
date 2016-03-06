@@ -15,12 +15,14 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// GET requests
+// GET reqs
 app.get("/", function(req, res){
 	res.sendfile('./public/index.html');
 });
+
+// POST reqs
 app.post("/api/predict", function(req,res){
+	console.log(req.body);
 	res.send(200, req.body)
 })
 
