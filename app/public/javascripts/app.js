@@ -306,14 +306,25 @@ var d3Map = require('./d3Map.jsx');
 
 var Map = React.createClass({displayName: "Map",
 
-	componentDidMount: function() {
+	// componentDidMount: function() {
+	// 	var el = ReactDOM.findDOMNode(this);
+
+	// 	console.log(el);
+	// 	if (Object.keys(this.props.data).length>0){
+	// 		d3Map.create(el, {
+	// 			width: this.props.width,
+	// 			height: this.props.height, 
+	// 			path: this.props.path
+	// 		}, this.props)
+	// 	}	
+	// },
+
+	componentDidUpdate: function(){
 		var el = ReactDOM.findDOMNode(this);
-
-		console.log(el);
-
 		d3Map.create(el, {
 			width: this.props.width,
-			height: this.props.height
+			height: this.props.height, 
+			path: this.props.path
 		}, this.props)
 	},
 
@@ -351,16 +362,24 @@ d3.json("/data/bostonTopo.json", function(error,topology) {
 	global.data = topology;
 });
 
+
 var App = React.createClass({displayName: "App",
 	getInitialState: function() {
-		var data;
-		d3.json(this.props.data, function(error,topology) {
-			data = topology;
-		});
-
+		// var data = global.data;
+		// d3.json(this.props.data, function(error,topology) {
+		// 	console.log("data", topology)
+		// 	data = topology;
+		// });
+		
 	    return {
-    		data: data
+    		data: {}
 	    };
+	},
+	componentDidMount: function(){
+		d3.json(this.props.data, function(error,topology) {
+			console.log("topology ", topology)
+			this.setState({data: topology});
+		}.bind(this));
 	},
 
 	render: function() {
@@ -381,31 +400,34 @@ ReactDOM.render(
   React.createElement(App, {data: "/data/bostonTopo.json", path: global.path, height: global.height, width: global.width}),
   document.getElementById('content')
 );
+
+
 },{"./Map.jsx":2}],4:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter;
 
 var d3Map = {}
 
 d3Map.create = function(el, props, state){
+	console.log("lol", state)
 	var mapSvg = d3.select(el).append('svg')
 		.attr('class', 'map')
 		.attr('width', props.width)
 		.attr('height', props.height);
-
+	console.log("createMap", state)
 	this.update(el, state);
 }
 
 d3Map.update = function(el, state) {
   // Re-compute the scales, and render the data points
-  this._drawMap(el, state.data);
+  console.log("in update data", state.data)
+  this._drawMap(el, state.data, state.path);
 };
 
-d3Map._drawMap = function(el, data){
-	var map = d3.select(el).selectAll('.map')
+d3Map._drawMap = function(el, data, path){
+	var map = d3.select(el).selectAll('.map');
 
-
-	map.append('path')
-		.datum(topojson.feature(data, data.objects.collection).features)
+	map.selectAll('.subunit')
+		.data(topojson.feature(data, data.objects.collection).features)
 		.enter()
 		.append('path')
 		.attr('class', function(d) { return 'subunit ' + d.properties.Name; })
@@ -432,6 +454,10 @@ d3Map._drawMap = function(el, data){
 			  data: data_for_req
 			});
 		})
+		
+	var div = d3.select("#map").append("div")
+		.attr("class", "tooltip")
+		.style("opacity", 0);
 }
 
 module.exports = d3Map;

@@ -7,21 +7,21 @@ d3Map.create = function(el, props, state){
 		.attr('class', 'map')
 		.attr('width', props.width)
 		.attr('height', props.height);
-
+	console.log("createMap", state)
 	this.update(el, state);
 }
 
 d3Map.update = function(el, state) {
   // Re-compute the scales, and render the data points
-  this._drawMap(el, state.data);
+  console.log("in update data", state.data)
+  this._drawMap(el, state.data, state.path);
 };
 
-d3Map._drawMap = function(el, data){
-	var map = d3.select(el).selectAll('.map')
+d3Map._drawMap = function(el, data, path){
+	var map = d3.select(el).selectAll('.map');
 
-
-	map.append('path')
-		.datum(topojson.feature(data, data.objects.collection).features)
+	map.selectAll('.subunit')
+		.data(topojson.feature(data, data.objects.collection).features)
 		.enter()
 		.append('path')
 		.attr('class', function(d) { return 'subunit ' + d.properties.Name; })
@@ -48,6 +48,10 @@ d3Map._drawMap = function(el, data){
 			  data: data_for_req
 			});
 		})
+
+	var div = d3.select("#map").append("div")
+		.attr("class", "tooltip")
+		.style("opacity", 0);
 }
 
 module.exports = d3Map;

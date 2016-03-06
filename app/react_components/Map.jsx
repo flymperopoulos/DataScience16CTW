@@ -2,14 +2,25 @@ var d3Map = require('./d3Map.jsx');
 
 var Map = React.createClass({
 
-	componentDidMount: function() {
+	// componentDidMount: function() {
+	// 	var el = ReactDOM.findDOMNode(this);
+
+	// 	console.log(el);
+	// 	if (Object.keys(this.props.data).length>0){
+	// 		d3Map.create(el, {
+	// 			width: this.props.width,
+	// 			height: this.props.height, 
+	// 			path: this.props.path
+	// 		}, this.props)
+	// 	}	
+	// },
+
+	componentDidUpdate: function(){
 		var el = ReactDOM.findDOMNode(this);
-
-		console.log(el);
-
 		d3Map.create(el, {
 			width: this.props.width,
-			height: this.props.height
+			height: this.props.height, 
+			path: this.props.path
 		}, this.props)
 	},
 

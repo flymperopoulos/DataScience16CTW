@@ -19,16 +19,24 @@ d3.json("/data/bostonTopo.json", function(error,topology) {
 	global.data = topology;
 });
 
+
 var App = React.createClass({
 	getInitialState: function() {
-		var data;
-		d3.json(this.props.data, function(error,topology) {
-			data = topology;
-		});
-
+		// var data = global.data;
+		// d3.json(this.props.data, function(error,topology) {
+		// 	console.log("data", topology)
+		// 	data = topology;
+		// });
+		
 	    return {
-    		data: data
+    		data: {}
 	    };
+	},
+	componentDidMount: function(){
+		d3.json(this.props.data, function(error,topology) {
+			console.log("topology ", topology)
+			this.setState({data: topology});
+		}.bind(this));
 	},
 
 	render: function() {
@@ -49,3 +57,4 @@ ReactDOM.render(
   <App data='/data/bostonTopo.json' path={global.path} height={global.height} width={global.width}/>,
   document.getElementById('content')
 );
+
