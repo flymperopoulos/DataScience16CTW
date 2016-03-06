@@ -306,18 +306,6 @@ var d3Map = require('./d3Map.jsx');
 
 var Map = React.createClass({displayName: "Map",
 
-	// componentDidMount: function() {
-	// 	var el = ReactDOM.findDOMNode(this);
-
-	// 	console.log(el);
-	// 	if (Object.keys(this.props.data).length>0){
-	// 		d3Map.create(el, {
-	// 			width: this.props.width,
-	// 			height: this.props.height, 
-	// 			path: this.props.path
-	// 		}, this.props)
-	// 	}	
-	// },
 	dispatcher: null,
 
 	componentDidMount: function() {
@@ -332,25 +320,13 @@ var Map = React.createClass({displayName: "Map",
 	 },
 
 	 postInformation: function (name) {
-	 	info = {"neighbourhood":name}
-	 	$.ajax({
-	 	  type: "POST",
-	 	  url: "/api/predict",
-	 	  data: info,
-	 	  success: function(){
-	 	  	// TODO: pass state param to change view accordingly with res
-	 	  	console.log("successfully posted neighbourhood info")
-	 	  }
-	 	});
+	 	info = {"neighbourhood":name};
+	 	this.props.onPost(info)
 	 },
 
 	componentDidUpdate: function(){
 		var el = ReactDOM.findDOMNode(this);
 		d3Map.update(el, this.props, this.dispatcher)
-	},
-
-	getMapState: function() {
-		console.log(this.props)
 	},
 
 	render: function() {
@@ -362,37 +338,26 @@ var Map = React.createClass({displayName: "Map",
 
 module.exports = Map;
 },{"./d3Map.jsx":4}],3:[function(require,module,exports){
+(function (global){
 var Map = require('./Map.jsx');
 
-var global = {}
-
-global.width=650
-global.height=600
-
-var projection = d3.geo.mercator()
-		.scale(1000 * 100)
-		.center([-71.06, 42.3201])
-		.translate([global.width/2, global.height/2]);
-
-var path = d3.geo.path()
-	.projection(projection);
-
-global.path = path;
-
-d3.json("/data/bostonTopo.json", function(error,topology) {
-	global.data = topology;
-});
-
-
 var App = React.createClass({displayName: "App",
-	getInitialState: function() {
-		// var data = global.data;
-		// d3.json(this.props.data, function(error,topology) {
-		// 	console.log("data", topology)
-		// 	data = topology;
-		// });
+	getInitialState: function() {	
 		
+		var width = 650;
+		var height = 600;
+		var projection = d3.geo.mercator()
+				.scale(1000 * 100)
+				.center([-71.06, 42.3201])
+				.translate([width/2, height/2]);
+
+		var path = d3.geo.path()
+			.projection(projection);
+
 	    return {
+	    	width : width, 
+	    	height : height,
+	    	path : path,
     		data: {}
 	    };
 	},
@@ -403,14 +368,27 @@ var App = React.createClass({displayName: "App",
 		}.bind(this));
 	},
 
+	postInformation: function(d){
+		$.ajax({
+		  type: "POST",
+		  url: "/api/predict",
+		  data: d,
+		  success: function(){
+		  	// TODO: pass state param to change view accordingly with res
+		  	console.log("successfully posted neighbourhood info")
+		  }
+		});
+	},
+
 	render: function() {
 		return (
 			React.createElement("div", {className: "App"}, 
 				React.createElement(Map, {
 					data: this.state.data, 
-					path: this.props.path, 
-					width: this.props.width, 
-					height: this.props.height}
+					path: this.state.path, 
+					width: this.state.width, 
+					height: this.state.height, 
+					onPost: this.postInformation}
 				)
 			)
 		)
@@ -423,6 +401,7 @@ ReactDOM.render(
 );
 
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./Map.jsx":2}],4:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter;
 
