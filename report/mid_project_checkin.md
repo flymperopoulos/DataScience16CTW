@@ -20,3 +20,8 @@ So far, we have accomplished the following:
 
 
 **What is the minimum viable product that you will have done by next Friday? What are your stretch goals?**
+By Friday as a MVP, we intend on having a decent model exposed as a web API using Node that will be used by a React app with a D3 map visualization of Boston. The user will input the parameters for prediction (our model’s input features), and the tool will display a predicted price. 
+
+As a stretch goal, we want to put in more work to the UI of the tool - adding extra features like similar listings that would give the user a better sense of pricing in addition to predictions. In addition, the model and backend do support extra cities around the US, and we'd like to give the user a choice of cities beyond Boston. 
+
+As our project stands right now, getting a better sense of model behavior and 'goodness' is one of the biggest hurdles we need to overcome. We are confident in our technical abilities to create the app in full-featured glory, but time may become a constraining factor.
