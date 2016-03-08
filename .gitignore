@@ -1,4 +1,4 @@
-/model/data
+./data
 ./app/node_modules
 .ipynb_checkpoints
 *.pyc
