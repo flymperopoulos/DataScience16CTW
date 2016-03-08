@@ -29,4 +29,24 @@ aS'bathrooms'
 p14
 aS'accommodates'
 p15
+aS'bed_type'
+p16
+aS'Airbed'
+p17
+aS'Couch'
+p18
+aS'Futon'
+p19
+aS'Pull-out Sofa'
+p20
+aS'Real Bed'
+p21
+aS'room_type'
+p22
+aS'Entire home/apt'
+p23
+aS'Private room'
+p24
+aS'Shared room'
+p25
 a.
