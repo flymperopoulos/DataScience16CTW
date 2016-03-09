@@ -11,6 +11,3 @@ for feature in modelFeatures:
 args = parser.parse_args()
 
 model = pickle.load( open('model.pkl', 'rb') )
-
-
-print args.accommodates
