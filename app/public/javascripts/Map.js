@@ -320,8 +320,7 @@ var Map = React.createClass({displayName: "Map",
 	 },
 
 	 postInformation: function (name) {
-	 	info = {"neighbourhood":name};
-	 	this.props.onPost(info)
+	 	this.props.onPost(name)
 	 },
 
 	componentDidUpdate: function(){

@@ -1,8 +1,10 @@
 var Map = require('./Map.jsx');
+var InputForm = require('./InputForm.jsx')
+var ResultDisplay = require('./ResultDisplay.jsx')
 
 var App = React.createClass({
+
 	getInitialState: function() {	
-		
 		var width = 650;
 		var height = 600;
 		var projection = d3.geo.mercator()
@@ -17,13 +19,28 @@ var App = React.createClass({
 	    	width : width, 
 	    	height : height,
 	    	path : path,
-    		data: {}
+    		data: {},
+    		prediction: ''
 	    };
 	},
+
+	updateFeatures: function(newFeatures){
+		this.setState({
+			features: newFeatures
+		})
+	},
+
 	componentDidMount: function(){
 		d3.json(this.props.data, function(error,topology) {
 			this.setState({data: topology});
 		}.bind(this));
+	},
+
+	submitFeatures: function(neighbourhood){
+		var data = this.state.features;
+		data.neighbourhood = neighbourhood;
+		console.log("Submitting info");
+		this.postInformation(data);
 	},
 
 	postInformation: function(d){
@@ -31,9 +48,11 @@ var App = React.createClass({
 		  type: "POST",
 		  url: "/api/predict",
 		  data: d,
-		  success: function(){
-		  	// TODO: pass state param to change view accordingly with res
-		  	console.log("successfully posted neighbourhood info")
+		  success: function(res){
+			this.setState({prediction: res.prediction})
+		  }.bind(this),
+		  error: function(err){
+		  	console.log(err);
 		  }
 		});
 	},
@@ -41,12 +60,21 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div className="App">
+				<InputForm
+					updateFeatures={this.updateFeatures}
+					submitFeatures={this.submitFeatures}
+				/>
+
 				<Map
 					data={this.state.data}
 					path={this.state.path} 
 					width={this.state.width}
 					height={this.state.height}
-					onPost = {this.postInformation}
+					onPost = {this.submitFeatures}
+				/>
+
+				<ResultDisplay
+					prediction={this.state.prediction}
 				/>
 			</div>
 		)

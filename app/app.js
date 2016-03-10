@@ -23,7 +23,7 @@ app.get("/", function(req, res){
 // POST reqs
 app.post("/api/predict", function(req,res){
 	console.log(req.body);
-	res.send(200, req.body)
+	res.json({prediction: 500})
 })
 
 var PORT = process.env.PORT || 3000;
