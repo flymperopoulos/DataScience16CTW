@@ -1,19 +1,23 @@
 import argparse
 import pickle
 
+mappings = pickle.load(open('mappings.pkl', 'rb'))
+
+print mappings
+
 def property_to_encoding(property_type):
 
-	return 
+	pass 
 
 
 def room_to_encoding(room_type):
 
-	return
+	pass
 
 
 def bed_to_encoding(bed_type):
 
-	return
+	pass
 
 parser = argparse.ArgumentParser()
 
