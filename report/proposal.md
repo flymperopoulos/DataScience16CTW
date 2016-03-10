@@ -57,10 +57,10 @@ For our mid-project check-in (Friday, March 4th) - we plan on having the followi
 **How should your final deliverable be assessed?  This assessment plan must be specific enough that I can apply it to your final deliverable.**
 
   - Readability and accessibility to viewers that are not familiar with the dataset (along the guidelines of 538 blog posts)
-  - Whether or not it can stand alone as a piece of research/exploratory paper
+  - Application/use of a predictive model as a backend API in a web-based exploratory tool
+  - Can the model exploration stand alone as a piece of research/exploratory paper
   - Documentation + style of our code; i.e. comments, structure, modularity (APIs for others to implement)
-  - Publish our results - Medium, 
+  - Publish our results to be available to the world
   - Recommendation for future areas of explorations based on the work we’ve done
   - Are the visualizations/conclusions compelling? 
   - Solid and rigorous analysis of findings 
-  - Stretch: Can you find a better listing based on the features of our model for your vacation at the given location etc.
