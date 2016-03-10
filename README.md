@@ -1,2 +1,6 @@
-# DataScience16CTW
-This is the base repo for the "Change the World" project for Data Science at Olin College, Spring 2016.
+### Intelligent Airbnb Price Prediction
+
+#### Content
+- `/app` - web app contents
+- `/model` - model development notebooks/exploration
+- `/report` - report markdown 
