@@ -19421,21 +19421,27 @@ var InputForm = React.createClass({displayName: "InputForm",
 	},
 
 	onBedChange: function(newBed){
-		this.setState({
-			selectedBed: newBed
-		})
+		var newState = this.state;
+		newState.selectedBed = newBed;
+		this.props.updateFeatures(newState);
+		this.setState(newState)
+		this.onComplete()
 	},
 
 	onRoomChange: function(newRoom){
-		this.setState({
-			selectedRoom: newRoom
-		})
+		var newState = this.state;
+		newState.selectedRoom = newRoom;
+		this.props.updateFeatures(newState);
+		this.setState(newState)
+		this.onComplete()
 	},
 
 	onPropertyChange: function(newProperty){
-		this.setState({
-			selectedProperty: newProperty
-		})
+		var newState = this.state;
+		newState.selectedProperty = newProperty;
+		this.props.updateFeatures(newState);
+		this.setState(newState)
+		this.onComplete()
 	},
 
 	submitData: function(){
@@ -19460,6 +19466,12 @@ var InputForm = React.createClass({displayName: "InputForm",
 
 				React.createElement(ModelInput, {
 					feature: "Accommodates", 
+					onInputChange: this.onInputChange, 
+					onComplete: this.onComplete}
+				), 
+
+				React.createElement(ModelInput, {
+					feature: "Bedrooms", 
 					onInputChange: this.onInputChange, 
 					onComplete: this.onComplete}
 				), 
@@ -19489,30 +19501,16 @@ var InputForm = React.createClass({displayName: "InputForm",
 				React.createElement(RadioGroup, {name: "property-type", selectedValue: this.state.selectedProperty, onChange: this.onPropertyChange}, 
 	  				Radio => (
 				    React.createElement("div", null, 
-				      React.createElement(Radio, {value: "Apartment"}), "Entire Home/Apartment", 
-				      React.createElement(Radio, {value: "Bed & Breakfast"}), "Private Room", 
-				      React.createElement(Radio, {value: "Boat"}), "Boat", 
+				      React.createElement(Radio, {value: "Apartment"}), "Apartment", 
+				      React.createElement(Radio, {value: "Private Room"}), "Private Room", 
 				      React.createElement(Radio, {value: "Bungalow"}), "Bungalow", 
 				      React.createElement(Radio, {value: "Cabin"}), "Cabin", 
-				      React.createElement(Radio, {value: "Castle"}), "Castle", 
 				      React.createElement(Radio, {value: "Condominium"}), "Condominium", 
 				      React.createElement(Radio, {value: "Dorm"}), "Dorm", 
-				      React.createElement(Radio, {value: "Earth House"}), "Earth House", 
 				      React.createElement(Radio, {value: "House"}), "House", 
-				      React.createElement(Radio, {value: "Hut"}), "Hut", 
-				      React.createElement(Radio, {value: "Island"}), "Island", 
-				      React.createElement(Radio, {value: "Lighthouse"}), "Lighthouse", 
 				      React.createElement(Radio, {value: "Loft"}), "Loft", 
-				      React.createElement(Radio, {value: "Other"}), "Other", 
-  				      React.createElement(Radio, {value: "Parking Space"}), "Parking Space", 
-  				      React.createElement(Radio, {value: "Plane"}), "Plane", 
-  				      React.createElement(Radio, {value: "Tent"}), "Tent", 
-  				      React.createElement(Radio, {value: "Tipi"}), "Tipi", 
   				      React.createElement(Radio, {value: "Townhouse"}), "Townhouse", 
-  				      React.createElement(Radio, {value: "Train"}), "Train", 
-  				      React.createElement(Radio, {value: "Treehouse"}), "Treehouse", 
-  				      React.createElement(Radio, {value: "Villa"}), "Villa", 
-  				      React.createElement(Radio, {value: "Yurt"}), "Yurt"
+  				      React.createElement(Radio, {value: "Villa"}), "Villa"
 				    )
 				  )
 				)

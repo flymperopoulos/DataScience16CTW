@@ -29,7 +29,7 @@ app.post("/api/predict", function(req,res){
 
 	var args = [req.body.selectedBed, req.body.selectedRoom, req.body.selectedProperty,
 				req.body.neighbourhood, req.body.Beds, req.body.Bathrooms,
-				req.body.Accommodates]
+				req.body.Accommodates, req.body.Bedrooms]
 
 	var options = {
 		args: args

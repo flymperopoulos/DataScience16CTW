@@ -22,21 +22,27 @@ var InputForm = React.createClass({
 	},
 
 	onBedChange: function(newBed){
-		this.setState({
-			selectedBed: newBed
-		})
+		var newState = this.state;
+		newState.selectedBed = newBed;
+		this.props.updateFeatures(newState);
+		this.setState(newState)
+		this.onComplete()
 	},
 
 	onRoomChange: function(newRoom){
-		this.setState({
-			selectedRoom: newRoom
-		})
+		var newState = this.state;
+		newState.selectedRoom = newRoom;
+		this.props.updateFeatures(newState);
+		this.setState(newState)
+		this.onComplete()
 	},
 
 	onPropertyChange: function(newProperty){
-		this.setState({
-			selectedProperty: newProperty
-		})
+		var newState = this.state;
+		newState.selectedProperty = newProperty;
+		this.props.updateFeatures(newState);
+		this.setState(newState)
+		this.onComplete()
 	},
 
 	submitData: function(){
@@ -61,6 +67,12 @@ var InputForm = React.createClass({
 
 				<ModelInput
 					feature="Accommodates"
+					onInputChange={this.onInputChange}
+					onComplete={this.onComplete}
+				/>
+
+				<ModelInput
+					feature="Bedrooms"
 					onInputChange={this.onInputChange}
 					onComplete={this.onComplete}
 				/>
@@ -90,8 +102,8 @@ var InputForm = React.createClass({
 				<RadioGroup name="property-type" selectedValue={this.state.selectedProperty} onChange={this.onPropertyChange}>
 	  				{Radio => (
 				    <div>
-				      <Radio value="Apartment" />Entire Home/Apartment
-				      <Radio value="Bed & Breakfast" />Private Room
+				      <Radio value="Apartment" />Apartment
+				      <Radio value="Private Room" />Private Room
 				      <Radio value="Bungalow" />Bungalow
 				      <Radio value="Cabin" />Cabin
 				      <Radio value="Condominium" />Condominium
