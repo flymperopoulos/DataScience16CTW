@@ -3,3 +3,4 @@
 .ipynb_checkpoints
 *.pyc
 ./model/.ipynb_checkpoints
+./node_modules
