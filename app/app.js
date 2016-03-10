@@ -5,6 +5,9 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
+var PythonShell = require('python-shell');
+
+
 var app = express();
 
 // Set up Middleware
@@ -23,7 +26,15 @@ app.get("/", function(req, res){
 // POST reqs
 app.post("/api/predict", function(req,res){
 	console.log(req.body);
-	res.json({prediction: 500})
+
+	// var options = [req.body.neighbourhood]
+
+	PythonShell.run('utils/predict.py', function (err, results) {
+		if (err) throw err;
+		// results is an array consisting of messages collected during execution 
+		console.log('results: %j', results);
+		res.json({prediction: results[0]})
+	});
 })
 
 var PORT = process.env.PORT || 3000;
