@@ -27,9 +27,17 @@ app.get("/", function(req, res){
 app.post("/api/predict", function(req,res){
 	console.log(req.body);
 
-	// var options = [req.body.neighbourhood]
+	var args = [req.body.selectedBed, req.body.selectedRoom, req.body.selectedProperty,
+				req.body.neighbourhood, req.body.Beds, req.body.Bathrooms,
+				req.body.Accommodates]
 
-	PythonShell.run('utils/predict.py', function (err, results) {
+	var options = {
+		args: args
+	}
+
+	console.log(options)
+
+	PythonShell.run('utils/predict.py', options, function (err, results) {
 		if (err) throw err;
 		// results is an array consisting of messages collected during execution 
 		console.log('results: %j', results);

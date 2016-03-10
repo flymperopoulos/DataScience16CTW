@@ -92,28 +92,14 @@ var InputForm = React.createClass({
 				    <div>
 				      <Radio value="Apartment" />Entire Home/Apartment
 				      <Radio value="Bed & Breakfast" />Private Room
-				      <Radio value="Boat" />Boat
 				      <Radio value="Bungalow" />Bungalow
 				      <Radio value="Cabin" />Cabin
-				      <Radio value="Castle" />Castle
 				      <Radio value="Condominium" />Condominium
 				      <Radio value="Dorm" />Dorm
-				      <Radio value="Earth House" />Earth House
 				      <Radio value="House" />House
-				      <Radio value="Hut" />Hut
-				      <Radio value="Island" />Island
-				      <Radio value="Lighthouse" />Lighthouse
 				      <Radio value="Loft" />Loft
-				      <Radio value="Other" />Other
-  				      <Radio value="Parking Space" />Parking Space
-  				      <Radio value="Plane" />Plane
-  				      <Radio value="Tent" />Tent
-  				      <Radio value="Tipi" />Tipi
   				      <Radio value="Townhouse" />Townhouse
-  				      <Radio value="Train" />Train
-  				      <Radio value="Treehouse" />Treehouse
   				      <Radio value="Villa" />Villa
-  				      <Radio value="Yurt" />Yurt
 				    </div>
 				  )}
 				</RadioGroup>
