@@ -80,7 +80,7 @@ var InputForm = React.createClass({
 				<RadioGroup name="bed-type" selectedValue={this.state.selectedBed} onChange={this.onBedChange}>
 	  				{Radio => (
 				    <div>
-				      <Radio value="Airbed" />Airbed
+				      <Radio value="Airbed"  />Airbed
 				      <Radio value="Couch" />Couch
 				      <Radio value="Futon" />Futon
 				      <Radio value="Pull-out Sofa" />Pull-out Sofa
